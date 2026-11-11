@@ -87,8 +87,73 @@ public:
         cout << "\n\n" << name << "이(가) 태어났습니다!" << endl;
         cout << "\"안녕! 앞으로 잘 부탁해!\"" << endl;
     }
-};
 
+    // 펫 상태 확인
+    void showStatus() {
+        cout << "\n======================================" << endl;
+        cout << "             펫 생성 완료!";
+        cout << "\n======================================" << endl;
+
+        cout << "이름 : " << name << endl;
+
+        cout << "\n[ 현재 상태 ]" << endl;
+
+        cout << "배고픔   : " << status.hunger << " / 100\n";
+        cout << "피로도   : " << status.fatigue << " / 100\n";
+        cout << "기분     : " << status.mood << " / 100\n";
+        cout << "건강     : " << status.health << " / 100\n";
+        cout << "청결도   : " << status.cleanliness << " / 100\n";
+        cout << "친밀도   : " << status.intimacy << " / 100\n";
+
+        cout << "\n[ " << name << "의 현재 기분 ]" << endl;
+
+        // 배고픔에 따른 메시지
+        if (status.hunger >= 70) {
+            cout << "- 배가 고파! 밥을 먹고싶어." << endl;
+        } else {
+            cout << "- 아직 배가 부른 편이야" << endl;
+        }
+
+        // 피로도에 따른 메시지
+        if (status.fatigue >= 70) {
+            cout << "- 너무 피곤해... 자고싶어." << endl;
+        } else {
+            cout << "- 아직은 괜찮아!" << endl;
+        }
+
+        // 기분에 따른 메시지
+        if (status.mood >= 70) {
+            cout << "- 오늘 기분이 정말 좋아!" << endl;
+        } else if (status.mood <= 30) {
+            cout << "- 오늘은 좀 우울해... 놀고싶어." << endl;
+        } else {
+            cout << "- 오늘은 그냥 평범한 하루야." << endl;
+        }
+
+        // 건강에 따른 메시지
+        if (status.health <= 40) {
+            cout << "- 몸이 안좋아... 건강을 돌봐줘." << endl;
+        } else {
+            cout << "- 건강한 상태야!" << endl;
+        }
+
+        // 청결도에 따른 메시지
+        if (status.cleanliness <= 40) {
+            cout << "- 몸이 더러워... 씻고 싶어!." << endl;
+        } else {
+            cout << "- 깨끗하고 상쾌해!" << endl;
+        }
+
+        // 친밀도에 따른 메시지
+        if (status.intimacy <= 30) {
+            cout << "- 우리 조금 더 친해지면 좋겠어." << endl;
+        } else {
+            cout << "- 너와 함께 있는 시간이 정말 즐거워." << endl;
+        }
+
+        cout << "======================================" << endl;
+    }
+};
 
 // 펫 생성 함수
 Pet createPet() {
@@ -189,6 +254,36 @@ int main() {
             case 1: {
                 Pet pet = createPet();
                 pet.showInfo();
+
+                // 펫 관리 메뉴
+                while (true) {
+                    cout << "\n======================================" << endl;
+                    cout << "             펫 관리 메뉴" << endl;
+                    cout << "======================================" << endl;
+
+                    cout << "1. 펫 상태 확인" << endl;
+                    cout << "2. 메인 메뉴로 돌아가기" << endl;
+
+                    cout << endl;
+
+                    cout << "선택 : ";
+                    cin >> menu;
+
+                    switch (menu) {
+                        case 1:
+                            pet.showStatus();
+                            break;
+                        case 2:
+                            cout << "\n메인 메뉴로 돌아갑니다." << endl;
+                            break;
+                        default:
+                            cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+                    }
+                    
+                    if (menu == 2) {
+                        break;
+                    }
+                }
                 break;
             }
             case 2:
