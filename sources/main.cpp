@@ -88,6 +88,23 @@ public:
         cout << "\"안녕! 앞으로 잘 부탁해!\"" << endl;
     }
 
+    // 상태 막대 출력 함수
+    void showBar(string title, int value) {
+        cout << title << " : ";
+
+        int filled = value / 5; // 0~100을 20칸으로 나누기
+
+        for (int i = 0; i < 20; i++) {
+            if (i < filled) {
+                cout << "■"; 
+            } else {
+                cout << "□"; 
+            }
+        }
+
+        cout << " " << value << "/100" << endl;
+    }
+
     // 펫 상태 확인
     void showStatus() {
         cout << "\n======================================" << endl;
@@ -98,12 +115,12 @@ public:
 
         cout << "\n[ 현재 상태 ]" << endl;
 
-        cout << "배고픔   : " << status.hunger << " / 100\n";
-        cout << "피로도   : " << status.fatigue << " / 100\n";
-        cout << "기분     : " << status.mood << " / 100\n";
-        cout << "건강     : " << status.health << " / 100\n";
-        cout << "청결도   : " << status.cleanliness << " / 100\n";
-        cout << "친밀도   : " << status.intimacy << " / 100\n";
+        showBar("배고픔", status.hunger);
+        showBar("피로도", status.fatigue);
+        showBar("기분  ", status.mood);
+        showBar("건강  ", status.health);
+        showBar("청결도", status.cleanliness);
+        showBar("친밀도", status.intimacy);
 
         cout << "\n[ " << name << "의 현재 기분 ]" << endl;
 
@@ -150,8 +167,6 @@ public:
         } else {
             cout << "- 너와 함께 있는 시간이 정말 즐거워." << endl;
         }
-
-        cout << "======================================" << endl;
     }
 };
 
