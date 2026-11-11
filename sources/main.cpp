@@ -168,6 +168,29 @@ public:
             cout << "- 너와 함께 있는 시간이 정말 즐거워." << endl;
         }
     }
+
+    void giveFood() {
+        cout << "\n [ 먹이 주기 ]" << endl;
+
+        cout << name << "에게 먹이를 주었습니다." << endl;
+        cout << "\"맛있어! 잘 먹었어!\"" << endl;
+
+        // 배고픔 감소
+        status.hunger -= 25;
+
+        if (status.hunger < 0) {
+            status.hunger = 0;
+        }
+
+        // 기분 증가
+        status.mood += 10;
+
+        if (status.mood > 100) {
+            status.mood = 100;
+        }
+
+        cout << "\n" << name << "의 배고픔이 감소하고 기분이 좋아졌습니다!" << endl;
+    }
 };
 
 // 펫 생성 함수
@@ -276,26 +299,30 @@ int main() {
                     cout << "             펫 관리 메뉴" << endl;
                     cout << "======================================" << endl;
 
-                    cout << "1. 펫 상태 확인" << endl;
-                    cout << "2. 메인 메뉴로 돌아가기" << endl;
+                    cout << "1. 먹이 주기" << endl;
+                    cout << "2. 펫 상태 확인" << endl;
+                    cout << "3. 메인 메뉴로 돌아가기" << endl;
 
                     cout << endl;
 
-                    cout << "선택 : ";
+                    cout << "메뉴 선택 : ";
                     cin >> menu;
 
                     switch (menu) {
                         case 1:
-                            pet.showStatus();
+                            pet.giveFood();
                             break;
                         case 2:
+                            pet.showStatus();
+                            break;
+                        case 3:
                             cout << "\n메인 메뉴로 돌아갑니다." << endl;
                             break;
                         default:
                             cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
                     }
                     
-                    if (menu == 2) {
+                    if (menu == 3) {
                         break;
                     }
                 }
