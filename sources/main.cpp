@@ -105,6 +105,28 @@ public:
         cout << " " << value << "/100" << endl;
     }
 
+    // 펫 그림 출력
+    void showPet() {
+        cout << endl;
+
+        switch(type) {
+            case PetType::COZY:
+                cout << "  ( o.o )\n";
+                cout << "    /|\\\n";
+                break;
+            case PetType::CURIOUS:
+                cout << "  ( O.O )\n";
+                cout << "    /|\\\n";
+                break;
+
+            case PetType::ACTIVE:
+               cout << "  ( ^.^ )\n";
+               cout << "    /|\\\n";
+               break;
+        }
+        cout << endl;
+    }
+
     // 펫 상태 확인
     void showStatus() {
         cout << "\n======================================" << endl;
@@ -292,6 +314,7 @@ int main() {
             case 1: {
                 Pet pet = createPet();
                 pet.showInfo();
+                pet.showPet();
 
                 // 펫 관리 메뉴
                 while (true) {
