@@ -89,14 +89,14 @@ public:
 
         switch(type) {
             case PetType::COZY:
-                cout << "  ( o.o )\n";
+                cout << "                  ( o.o )\n";
                 break;
             case PetType::CURIOUS:
-                cout << "  ( O.O )\n";
+                cout << "                  ( O.O )\n";
                 break;
 
             case PetType::ACTIVE:
-               cout << "  ( ^.^ )\n";
+               cout << "                   ( ^.^ )\n";
                break;
         }
         cout << endl;
@@ -112,7 +112,7 @@ public:
 
         cout << "                     " << name << endl;
         cout << "            \"안녕! 앞으로 잘 부탁해!\"" << endl;
-        cout << "\n" << name << "이(가) 태어났습니다!" << endl;
+        cout << "\n" << name << "가 태어났습니다!" << endl;
         
         cout << "\n[ 펫 정보 ]" << endl;
         cout << "이름       : " << name << endl;
@@ -131,12 +131,12 @@ public:
         cout << "청결도 : " << status.cleanliness << endl;
         cout << "친밀도 : " << status.intimacy << endl;
 
-        cout << "======================================" << endl;
+        cout << endl;
     }
 
     // 펫의 현재 요구 출력
     void showNeeds() {
-        cout << "\n-------------------------------------" << endl;
+        cout << "\n" << endl;
         cout << "[ 현재 요구 ]" << endl;
 
         bool hasNeed = false;
@@ -185,7 +185,7 @@ public:
         showPet();
         cout << "                     " << name << endl;
 
-        cout << "\n--------------------------------------" << endl;
+        cout << "\n" << endl;
         cout << "[ 캐릭터 상태 ]" << endl;
 
         showBar("배고픔", status.hunger);
@@ -197,13 +197,13 @@ public:
 
         showNeeds();
 
-        cout << "\n--------------------------------------" << endl;
+        cout << "\n" << endl;
         cout << "무엇을 해줄까요?" << endl;
         cout << endl;
         cout << "1. 먹이 주기" << endl;
         cout << "2. 상태 확인" << endl;
         cout << "3. 메인 메뉴로 돌아가기" << endl;
-        cout << "\n--------------------------------------" << endl;
+        cout << "\n" << endl;
 
     }
 
@@ -227,14 +227,34 @@ public:
 
         showNeeds();
 
-        cout << "\n======================================" << endl;
+        cout << "\n" << endl;
     }
 
     void giveFood() {
-        cout << "\n [ 먹이 주기 ]" << endl;
+        int choice;
 
-        cout << name << "에게 먹이를 주었습니다." << endl;
-        cout << "\"맛있어! 잘 먹었어!\"" << endl;
+        cout << "\n======================================" << endl;
+        cout << "              먹이 주기";
+        cout << "\n======================================" << endl;
+        
+        cout << "\n어떤 먹이를 줄까요?\n" << endl;
+        cout << "1. 일반 먹이" << endl;
+        cout << "2. 돌아가기" << endl;
+        cout << "\n선택 : ";
+        cin >> choice;
+
+        if (choice == 2) {
+            cout << "\n먹이 주기를 취소했습니다." << endl;
+            return;
+        }
+
+        if (choice != 1) {
+            cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+            return;
+        }
+
+        int beforeHunger = status.hunger;
+        int beforeMood = status.mood;
 
         // 배고픔 감소
         status.hunger -= 25;
@@ -250,7 +270,16 @@ public:
             status.mood = 100;
         }
 
-        cout << "\n" << name << "의 배고픔이 감소하고 기분이 좋아졌습니다!" << endl;
+        cout << "\n" << name << "가 맛있게 밥을 먹었습니다!" << endl;
+        cout << endl;
+        showPet();
+        cout << "                 \"잘 먹었어요!\"" << endl;
+
+        cout << "\n" << endl;
+        cout << "[ 상태 변화 ]" << endl;
+        cout << "배고픔 : " << beforeHunger << " -> " << status.hunger << endl;
+        cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
+        cout << endl;
     }
 };
 
@@ -352,12 +381,12 @@ int main() {
 
         cout << "\n          나만의 캐릭터를 키워보세요!" << endl;
         cout << "\n                  (｡･ω･｡)" << endl;
-        cout << "\n------------------------------------------------" << endl;
+        cout << "\n" << endl;
 
         cout << "1. 새 게임 시작" << endl;
         cout << "2. 종료" << endl;
 
-        cout << "------------------------------------------------" << endl;
+        cout << endl;
         cout << "\n선택 : ";
 
         menu = inputNumber();
@@ -369,7 +398,6 @@ int main() {
             case 1: {
                 Pet pet = createPet();
                 pet.showInfo();
-                pet.showPet();
 
                 // 현재 기능 사용하는 게임 화면
                 while (true) {
