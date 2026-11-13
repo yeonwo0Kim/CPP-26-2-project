@@ -176,7 +176,36 @@ public:
         }
     }
 
-    
+    //  날짜 별 화면 출력
+    void showGameScreen(int day) {
+        cout << "\n======================================" << endl;
+        cout << "              DAY " << day;
+        cout << "\n======================================" << endl;
+
+        showPet();
+        cout << "                     " << name << endl;
+
+        cout << "\n--------------------------------------" << endl;
+        cout << "[ 캐릭터 상태 ]" << endl;
+
+        showBar("배고픔", status.hunger);
+        showBar("피로도", status.fatigue);
+        showBar("기분  ", status.mood);
+        showBar("건강  ", status.health);
+        showBar("청결도", status.cleanliness);
+        showBar("친밀도", status.intimacy);
+
+        showNeeds();
+
+        cout << "\n--------------------------------------" << endl;
+        cout << "무엇을 해줄까요?" << endl;
+        cout << endl;
+        cout << "1. 먹이 주기" << endl;
+        cout << "2. 상태 확인" << endl;
+        cout << "3. 메인 메뉴로 돌아가기" << endl;
+        cout << "\n--------------------------------------" << endl;
+
+    }
 
     // 펫 상태 확인
     void showStatus() {
@@ -184,7 +213,8 @@ public:
         cout << "              상태 확인";
         cout << "\n======================================" << endl;
 
-        cout << "이름 : " << name << endl;
+        showPet();
+        cout << "                     " << name << endl;
 
         cout << "\n[ 현재 상태 ]" << endl;
 
@@ -341,20 +371,12 @@ int main() {
                 pet.showInfo();
                 pet.showPet();
 
-                // 펫 관리 메뉴
+                // 현재 기능 사용하는 게임 화면
                 while (true) {
-                    cout << "\n======================================" << endl;
-                    cout << "             펫 관리 메뉴" << endl;
-                    cout << "======================================" << endl;
+                    pet.showGameScreen(1);
 
-                    cout << "1. 먹이 주기" << endl;
-                    cout << "2. 펫 상태 확인" << endl;
-                    cout << "3. 메인 메뉴로 돌아가기" << endl;
-
-                    cout << endl;
-
-                    cout << "메뉴 선택 : ";
-                    cin >> menu;
+                    cout << "\n선택 : ";
+                    menu = inputNumber();
 
                     switch (menu) {
                         case 1:
