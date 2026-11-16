@@ -201,8 +201,9 @@ public:
         cout << "무엇을 해줄까요?" << endl;
         cout << endl;
         cout << "1. 먹이 주기" << endl;
-        cout << "2. 상태 확인" << endl;
-        cout << "3. 메인 메뉴로 돌아가기" << endl;
+        cout << "2. 놀아주기" << endl;
+        cout << "3. 상태 확인" << endl;
+        cout << "4. 메인 메뉴로 돌아가기" << endl;
         cout << "\n" << endl;
 
     }
@@ -230,6 +231,7 @@ public:
         cout << "\n" << endl;
     }
 
+    // 먹이주기 기능
     void giveFood() {
         int choice;
 
@@ -259,16 +261,12 @@ public:
         // 배고픔 감소
         status.hunger -= 25;
 
-        if (status.hunger < 0) {
-            status.hunger = 0;
-        }
+        if (status.hunger < 0) status.hunger = 0;
 
         // 기분 증가
         status.mood += 10;
 
-        if (status.mood > 100) {
-            status.mood = 100;
-        }
+        if (status.mood > 100) status.mood = 100;
 
         cout << "\n" << name << "가 맛있게 밥을 먹었습니다!" << endl;
         cout << endl;
@@ -279,6 +277,84 @@ public:
         cout << "[ 상태 변화 ]" << endl;
         cout << "배고픔 : " << beforeHunger << " -> " << status.hunger << endl;
         cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
+        cout << endl;
+    }
+
+    // 놀아주기 기능
+    void playWithPet() {
+        int choice;
+
+        cout << "\n======================================" << endl;
+        cout << "                놀아주기" << endl;
+        cout << "======================================" << endl;
+
+        // 피로도가 너무 높으면 놀 수 없음
+        if (status.fatigue >= 80) {
+            cout << "\n" << name << "가 너무 피곤해서 놀 수 없어요..." << endl;
+            cout << "먼저 쉬게 해주세요!" << endl;
+            return;
+        }
+
+        cout << "\n어떤 놀이를 할까요?\n" << endl;
+        cout << "1. 공놀이" << endl;
+        cout << "2. 숨바꼭질" << endl;
+        cout << "3. 장난감 놀이" << endl;
+        cout << "4. 돌아가기" << endl;
+
+        cout << "\n선택 : ";
+        cin >> choice;
+
+        if (choice == 4) {
+            cout << "\n놀아주기를 취소했습니다." << endl;
+            return;
+        }
+
+        if (choice < 1 || choice > 3) {
+            cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+            return;
+        }
+
+        // 상태 변화 전 값 저장
+        int beforeMood = status.mood;
+        int beforeIntimacy = status.intimacy;
+        int beforeFatigue = status.fatigue;
+
+        // 놀이 종류에 따른 상태 변화
+        switch (choice) {
+            case 1: // 공놀이
+                status.mood += 20;
+                status.intimacy += 10;
+                status.fatigue += 15;
+                cout << "\n" << name << "와 공놀이를 했습니다!" << endl;
+                break;
+
+            case 2: // 숨바꼭질
+                status.mood += 15;
+                status.intimacy += 8;
+                status.fatigue += 10;
+                cout << "\n" << name << "와 숨바꼭질을 했습니다!" << endl;
+                break;
+
+            case 3: // 장난감 놀이
+                status.mood += 15;
+                status.intimacy += 7;
+                status.fatigue += 5;
+                cout << "\n" << name << "와 장난감 놀이를 했습니다!" << endl;
+                break;
+        }
+
+        // 능력치는 최대 100까지만 증가
+        if (status.mood > 100) status.mood = 100;
+        if (status.intimacy > 100) status.intimacy = 100;
+        if (status.fatigue > 100) status.fatigue = 100;
+
+        showPet();
+        cout << "                 \"정말 재미있어요!\"" << endl;
+
+        cout << "\n[ 상태 변화 ]" << endl;
+        cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
+        cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
+        cout << "피로도 : " << beforeFatigue << " -> " << status.fatigue << endl;
         cout << endl;
     }
 };
@@ -377,7 +453,7 @@ int main() {
     while (true) {
         cout << "\n======================================" << endl;
         cout << "             MY LITTLE PET" << endl;
-        cout << "======================================" << endl;
+        cout << "=======================================" << endl;
 
         cout << "\n          나만의 캐릭터를 키워보세요!" << endl;
         cout << "\n                  (｡･ω･｡)" << endl;
@@ -411,9 +487,12 @@ int main() {
                             pet.giveFood();
                             break;
                         case 2:
-                            pet.showStatus();
+                            pet.playWithPet();
                             break;
                         case 3:
+                            pet.showStatus();
+                            break;
+                        case 4:
                             cout << "\n메인 메뉴로 돌아갑니다." << endl;
                             break;
                         default:
