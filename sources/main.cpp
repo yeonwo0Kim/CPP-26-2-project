@@ -203,8 +203,9 @@ public:
         cout << "1. 먹이 주기" << endl;
         cout << "2. 놀아주기" << endl;
         cout << "3. 씻기기" << endl;
-        cout << "4. 상태 확인" << endl;
-        cout << "5. 메인 메뉴로 돌아가기" << endl;
+        cout << "4. 재우기" << endl;
+        cout << "5. 상태 확인" << endl;
+        cout << "6. 메인 메뉴로 돌아가기" << endl;
         cout << "\n" << endl;
 
     }
@@ -398,6 +399,45 @@ public:
         cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
         cout << endl;
     }
+
+    // 재우기 기능
+    void sleepPet() {
+        cout << "\n======================================" << endl;
+        cout << "                재우기" << endl;
+        cout << "======================================" << endl;
+
+        // 상태 변화 전 값 저장
+        int beforeFatigue = status.fatigue;
+        int beforeHealth = status.health;
+        int beforeHunger = status.hunger;
+
+        cout << "\n" << name << "가 잠자리에 들었습니다..." << endl;
+
+        showPet();
+        cout << "                 \"잘 자요... Zzz\"" << endl;
+
+        // 잠을 자면서 상태 변화
+        status.fatigue -= 40;
+        status.health += 5;
+        status.hunger += 10;
+
+        // 상태 범위 제한
+        if (status.fatigue < 0) status.fatigue = 0;
+        if (status.health > 100) status.health = 100;
+        if (status.hunger > 100) status.hunger = 100;
+
+        cout << "\n" << name << "가 푹 자고 일어났습니다!" << endl;
+
+        showPet();
+        cout << "                 \"잘 잤어요!\"" << endl;
+
+        cout << "\n[ 상태 변화 ]" << endl;
+        cout << "피로도 : " << beforeFatigue << " -> " << status.fatigue << endl;
+        cout << "건강   : " << beforeHealth << " -> " << status.health << endl;
+        cout << "배고픔 : " << beforeHunger << " -> " << status.hunger << endl;
+
+        cout << endl;
+    }
 };
 
 // 숫자 입력 함수
@@ -534,9 +574,12 @@ int main() {
                             pet.washPet();
                             break;
                         case 4:
-                            pet.showStatus();
+                            pet.sleepPet();
                             break;
                         case 5:
+                            pet.showStatus();
+                            break;
+                        case 6:
                             cout << "\n메인 메뉴로 돌아갑니다." << endl;
                             break;
                         default:
