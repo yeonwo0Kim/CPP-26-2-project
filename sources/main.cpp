@@ -204,8 +204,9 @@ public:
         cout << "2. 놀아주기" << endl;
         cout << "3. 씻기기" << endl;
         cout << "4. 재우기" << endl;
-        cout << "5. 상태 확인" << endl;
-        cout << "6. 메인 메뉴로 돌아가기" << endl;
+        cout << "5. 대화하기" << endl;
+        cout << "6. 상태 확인" << endl;
+        cout << "7. 메인 메뉴로 돌아가기" << endl;
         cout << "\n" << endl;
 
     }
@@ -438,6 +439,74 @@ public:
 
         cout << endl;
     }
+
+    // 대화하기 기능
+    void talkWithPet() {
+        int choice;
+
+        cout << "\n======================================" << endl;
+        cout << "                대화하기" << endl;
+        cout << "======================================" << endl;
+
+        cout << "\n" << name << "와 어떤 이야기를 나눌까요?\n" << endl;
+        cout << "1. 칭찬하기" << endl;
+        cout << "2. 일상 이야기하기" << endl;
+        cout << "3. 애정 표현하기" << endl;
+        cout << "4. 돌아가기" << endl;
+
+        cout << "\n선택 : ";
+        cin >> choice;
+
+        if (choice == 4) {
+            cout << "\n대화를 종료했습니다." << endl;
+            return;
+        }
+
+        if (choice < 1 || choice > 3) {
+            cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+            return;
+        }
+
+        // 상태 변화 전 값 저장
+        int beforeMood = status.mood;
+        int beforeIntimacy = status.intimacy;
+
+        // 대화 주제에 따른 반응
+        switch (choice) {
+            case 1:
+                cout << "\n" << name << "를 칭찬해 주었습니다!" << endl;
+                cout << "\"정말요? 기분이 좋아요!\"" << endl;
+                status.mood += 10;
+                status.intimacy += 10;
+                break;
+
+            case 2:
+                cout << "\n" << name << "에게 오늘 있었던 일을 이야기했습니다!" << endl;
+                cout << "\"우와! 정말 재미있는 이야기네요!\"" << endl;
+                status.mood += 10;
+                status.intimacy += 15;
+                break;
+
+            case 3:
+                cout << "\n" << name << "에게 애정을 표현했습니다!" << endl;
+                cout << "\"저도 정말 좋아해요!\"" << endl;
+                status.mood += 15;
+                status.intimacy += 20;
+                break;
+        }
+
+        // 능력치는 최대 100까지만 증가
+        if (status.mood > 100) status.mood = 100;
+        if (status.intimacy > 100) status.intimacy = 100;
+
+        showPet();
+
+        cout << "\n[ 상태 변화 ]" << endl;
+        cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
+        cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
+
+        cout << endl;
+    }
 };
 
 // 숫자 입력 함수
@@ -577,16 +646,19 @@ int main() {
                             pet.sleepPet();
                             break;
                         case 5:
-                            pet.showStatus();
+                            pet.talkWithPet();
                             break;
                         case 6:
+                            pet.showStatus();
+                            break;
+                        case 7:
                             cout << "\n메인 메뉴로 돌아갑니다." << endl;
                             break;
                         default:
                             cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
                     }
                     
-                    if (menu == 5) {
+                    if (menu == 7) {
                         break;
                     }
                 }
