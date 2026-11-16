@@ -202,8 +202,9 @@ public:
         cout << endl;
         cout << "1. 먹이 주기" << endl;
         cout << "2. 놀아주기" << endl;
-        cout << "3. 상태 확인" << endl;
-        cout << "4. 메인 메뉴로 돌아가기" << endl;
+        cout << "3. 씻기기" << endl;
+        cout << "4. 상태 확인" << endl;
+        cout << "5. 메인 메뉴로 돌아가기" << endl;
         cout << "\n" << endl;
 
     }
@@ -357,6 +358,46 @@ public:
         cout << "피로도 : " << beforeFatigue << " -> " << status.fatigue << endl;
         cout << endl;
     }
+
+    // 씻기기 기능
+    void washPet() {
+        cout << "\n======================================" << endl;
+        cout << "                씻기기" << endl;
+        cout << "======================================" << endl;
+
+        // 청결도가 높으면 씻기지 않음
+        if (status.cleanliness >= 90) {
+            cout << "\n" << name << "는 이미 깨끗해요!" << endl;
+            cout << "지금은 씻지 않아도 될 것 같아요." << endl;
+            return;
+        }
+
+        // 상태 변화 전 값 저장
+        int beforeCleanliness = status.cleanliness;
+        int beforeMood = status.mood;
+        int beforeIntimacy = status.intimacy;
+
+        // 씻기기에 따른 상태 변화
+        status.cleanliness += 30;
+        status.mood += 10;
+        status.intimacy += 5;
+
+        // 능력치는 최대 100까지만 증가
+        if (status.cleanliness > 100) status.cleanliness = 100;
+        if (status.mood > 100) status.mood = 100;
+        if (status.intimacy > 100) status.intimacy = 100;
+
+        cout << "\n" << name << "를 깨끗하게 씻겨주었습니다!" << endl;
+
+        showPet();
+        cout << "                 \"상쾌해요!\"" << endl;
+
+        cout << "\n[ 상태 변화 ]" << endl;
+        cout << "청결도 : " << beforeCleanliness << " -> " << status.cleanliness << endl;
+        cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
+        cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
+        cout << endl;
+    }
 };
 
 // 숫자 입력 함수
@@ -490,16 +531,19 @@ int main() {
                             pet.playWithPet();
                             break;
                         case 3:
-                            pet.showStatus();
+                            pet.washPet();
                             break;
                         case 4:
+                            pet.showStatus();
+                            break;
+                        case 5:
                             cout << "\n메인 메뉴로 돌아갑니다." << endl;
                             break;
                         default:
                             cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
                     }
                     
-                    if (menu == 3) {
+                    if (menu == 5) {
                         break;
                     }
                 }
