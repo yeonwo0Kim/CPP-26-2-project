@@ -1,0 +1,191 @@
+#include <iostream>
+#include "game.h"
+using namespace std;
+
+// 숫자 입력 함수
+int inputNumber() {
+    int number;
+
+    // 예외 상황
+    while (!(cin >> number)) {
+        cout << "\n잘못된 입력입니다. 숫자로 입력해주세요." << endl;
+        cout << "선택 : ";
+
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+
+    return number;
+}
+
+// 펫 생성 함수
+Pet createPet() {
+    string name;
+    int typeInput;
+    int raisingDays;
+    PetType type;
+
+    cout << "\n======================================" << endl;
+    cout << "              펫 생성!" << endl;
+    cout << "======================================" << endl;
+
+    cout << endl;
+
+    // 이름 입력
+    cout << "펫 이름을 입력하세요 : ";
+    cin >> name;
+
+    while (name.empty()) {
+        cout << "이름을 입력해주세요 : ";
+        cin >> name;
+    }
+
+    // 펫 유형 선택
+    cout << "\n펫 유형을 선택하세요.\n" << endl;
+    cout << "1. 포근이" << endl;
+    cout << "2. 호기심이" << endl;
+    cout << "3. 활발이" << endl;
+
+    cout << endl;
+
+    while(true) {
+        cout << "선택: ";
+        typeInput = inputNumber();
+
+        if (typeInput >= 1 && typeInput <= 3) 
+            break;
+        
+        cout << "1~3 중에서 선택해주세요." << endl;
+        
+    }
+    
+    switch(typeInput) {
+        case 1:
+            type = PetType::COZY;
+            break;
+        case 2:
+            type = PetType::CURIOUS;
+            break;
+        case 3:
+            type = PetType::ACTIVE;
+            break;
+    }
+
+    // 육성 기간 설정
+    cout << "\n펫을 며칠 동안 육성할까요?" << endl;
+
+    while (true) {
+        cout << "육성 기간 : ";
+        raisingDays = inputNumber();
+
+        if (raisingDays > 0) 
+            break;
+        
+        cout << "1일 이상의 기간을 입력해주세요.";
+    }
+
+    // 펫 객체 생성
+    Pet pet(name, type, raisingDays);
+
+    return pet;
+}
+
+// Game 생성자
+Game::Game() {
+    day = 1;
+}
+
+// 메인 메뉴 출력
+void Game::showMainMenu() {
+    cout << "\n======================================" << endl;
+        cout << "             MY LITTLE PET" << endl;
+        cout << "=======================================" << endl;
+
+        cout << "\n          나만의 캐릭터를 키워보세요!" << endl;
+        cout << "\n                  (｡･ω･｡)" << endl;
+        cout << "\n" << endl;
+
+        cout << "1. 새 게임 시작" << endl;
+        cout << "2. 종료" << endl;
+}
+
+// 게임 시작
+void Game::start() {
+    int menu;
+
+    while (true) {
+        showMainMenu();
+
+        cout << endl;
+        cout << "\n선택 : ";
+
+        menu = inputNumber();
+
+        cout << endl;
+        cout << endl;
+
+        switch (menu) {
+            case 1:
+                startNewGame();
+                break;
+
+            case 2:
+                cout << "\n게임을 종료합니다." << endl;
+                return;
+
+            default:
+                cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+        }
+    }
+}
+
+// 새 게임 시작
+void Game::startNewGame() {
+    day = 1;
+
+    Pet pet = createPet();
+
+    pet.showInfo();
+
+    playGame(pet);
+}
+
+// 게임 진행
+void Game::playGame(Pet& pet) {
+    int menu;
+    
+    // 현재 기능 사용하는 게임 화면
+    while (true)
+    {
+        pet.showGameScreen(day);
+
+        cout << "\n선택 : ";
+        menu = inputNumber();
+
+        switch (menu){
+            case 1:
+                pet.giveFood();
+                break;
+            case 2:
+                pet.playWithPet();
+                break;
+            case 3:
+                pet.washPet();
+                break;
+            case 4:
+                pet.sleepPet();
+                break;
+            case 5:
+                pet.talkWithPet();
+                break;
+            case 6:
+                pet.showStatus();
+                break;
+            case 7:
+                cout << "\n메인 메뉴로 돌아갑니다." << endl;
+                return;
+            default:
+                cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+        }
+    }
+}
