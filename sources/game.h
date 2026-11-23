@@ -10,4 +10,6 @@ public:
     void showMainMenu();
     void startNewGame();
     void playGame(Pet& pet);
+
+    bool endDay(Pet& pet);
 };

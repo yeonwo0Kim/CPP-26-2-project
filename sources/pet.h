@@ -19,12 +19,24 @@ struct PetStatus {
     int intimacy;     // 친밀도
 };
 
+// 돌봄 행동 기록
+struct CareRecord {
+    int food = 0;
+    int play = 0;
+    int wash = 0;
+    int sleep = 0;
+    int talk = 0;
+};
+
 class Pet {
 private:
     string name;
     PetType type;
     PetStatus status;
     int raisingDays; // 키운 일수
+
+    CareRecord dailyRecord; // 하루 돌봄 기록
+    CareRecord totalRecord; // 전체 누적 돌봄 기록
 
 public:
     Pet(string name, PetType type, int raisingDays);
@@ -43,4 +55,9 @@ public:
     void washPet();
     void sleepPet();
     void talkWithPet();
+
+    void showDailyResult(int day);
+    void nextDay();
+    void resetDailyRecord();
+    int getRaisingDays();
 };

@@ -182,10 +182,65 @@ void Game::playGame(Pet& pet) {
                 pet.showStatus();
                 break;
             case 7:
+                if (endDay(pet)) {
+                    return;
+                }
+                break;
+            case 8:
                 cout << "\n메인 메뉴로 돌아갑니다." << endl;
                 return;
             default:
                 cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
         }
     }
+}
+
+// 하루 마무리
+bool Game::endDay(Pet& pet) {
+    
+    // 하루 정산 화면
+    pet.showDailyResult(day);
+
+    // 육성 기간 종료 확인
+    if (day >= pet.getRaisingDays()) {
+        cout << "\n======================================" << endl;
+        cout << "            육성 기간 종료!" << endl;
+        cout << "======================================" << endl;
+
+        cout << "\n총 " << day << "일 동안 육성했습니다!" << endl;
+        // cout << "다음 단계에서 최종 진화 기능이 추가됩니다." << endl;
+
+        return true;
+    }
+
+    cout << "\n하루를 마무리할까요?" << endl;
+    cout << "1. 잠들기 (다음 날 이동)" << endl;
+    cout << "2. 돌아가기" << endl;
+    cout << "\n선택 : ";
+
+    int choice = inputNumber();
+
+    if (choice == 1) {
+        // 하루 경과에 따른 상태 변화
+        pet.nextDay();
+
+        // 일일 기록 초기화
+        pet.resetDailyRecord();
+
+        // 날짜 증가
+        day++;
+
+        cout << "\nDAY " << day - 1 << " 종료!" << endl;
+        cout << "DAY " << day << "로 이동합니다." << endl;
+    }
+
+    else if (choice == 2){
+        cout << "\n게임으로 돌아갑니다." << endl;
+    }
+
+    else {
+        cout << "\n잘못된 선택입니다." << endl;
+    }
+    
+    return false;
 }

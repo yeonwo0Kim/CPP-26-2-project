@@ -206,7 +206,8 @@ void Pet::showGameScreen(int day)
     cout << "4. 재우기" << endl;
     cout << "5. 대화하기" << endl;
     cout << "6. 상태 확인" << endl;
-    cout << "7. 메인 메뉴로 돌아가기" << endl;
+    cout << "7. 하루 마무리" << endl;
+    cout << "8. 메인 메뉴로 돌아가기" << endl;
     cout << "\n"
          << endl;
 }
@@ -291,6 +292,10 @@ void Pet::giveFood()
     cout << "배고픔 : " << beforeHunger << " -> " << status.hunger << endl;
     cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
     cout << endl;
+
+    // 먹이 주기 횟수 증가
+    dailyRecord.food++;
+    totalRecord.food++;
 }
 
 // 놀아주기 기능
@@ -382,6 +387,10 @@ void Pet::playWithPet()
     cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
     cout << "피로도 : " << beforeFatigue << " -> " << status.fatigue << endl;
     cout << endl;
+
+    // 놀아주기 횟수 추가
+    dailyRecord.play++;
+    totalRecord.play++;
 }
 
 // 씻기기 기능
@@ -429,6 +438,10 @@ void Pet::washPet()
     cout << "기분   : " << beforeMood << " -> " << status.mood << endl;
     cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
     cout << endl;
+
+    // 씻기기 횟수 증가
+    dailyRecord.wash++;
+    totalRecord.wash++;
 }
 
 // 재우기 기능
@@ -474,6 +487,10 @@ void Pet::sleepPet()
     cout << "배고픔 : " << beforeHunger << " -> " << status.hunger << endl;
 
     cout << endl;
+
+    // 재우기 횟수 증가
+    dailyRecord.sleep++;
+    totalRecord.sleep++;
 }
 
 // 대화하기 기능
@@ -553,4 +570,86 @@ void Pet::talkWithPet()
     cout << "친밀도 : " << beforeIntimacy << " -> " << status.intimacy << endl;
 
     cout << endl;
+
+    // 대화하기 횟수 증가
+    dailyRecord.talk++;
+    totalRecord.talk++;
+}
+
+// 하루 마무리 화면
+void Pet::showDailyResult (int day) {
+    cout << "\n======================================" << endl;
+    cout << "           DAY " << day << " 결과" << endl;
+    cout << "======================================" << endl;
+
+    cout << "\n오늘 " << name << "와 함께한 하루!" << endl;
+
+    cout << "\n[ 오늘의 돌봄 기록 ]" << endl;
+    cout << "먹이 주기 : " << dailyRecord.food << "회" << endl;
+    cout << "놀아주기  : " << dailyRecord.play << "회" << endl;
+    cout << "씻기기    : " << dailyRecord.wash << "회" << endl;
+    cout << "재우기    : " << dailyRecord.sleep << "회" << endl;
+    cout << "대화하기  : " << dailyRecord.talk << "회" << endl;
+
+    cout << "\n[ 현재 상태 ]" << endl;
+    cout << "배고픔 : " << status.hunger << endl;
+    cout << "피로도 : " << status.fatigue << endl;
+    cout << "기분   : " << status.mood << endl;
+    cout << "건강   : " << status.health << endl;
+    cout << "청결도 : " << status.cleanliness << endl;
+    cout << "친밀도 : " << status.intimacy << endl;
+
+    cout << "\n======================================" << endl;
+
+}
+
+// 하루 경과에 따른 상태 변화
+void Pet::nextDay() {
+    cout << "\n[ 하루 경과에 따른 상태 변화 ]" << endl;
+
+    // 상태 변화
+    status.hunger += 20;
+    status.fatigue += 10;
+    status.mood -= 5;
+    status.cleanliness -= 10;
+
+    // 배고픔이 심하거나 청결도가 낮으면 건강 감소
+    if (status.hunger >= 80 || status.cleanliness <= 20) {
+        status.health -= 10;
+    }
+
+    // 상태 범위 제한
+    if (status.hunger > 100)
+        status.hunger = 100;
+
+    if (status.fatigue > 100)
+        status.fatigue = 100;
+
+    if (status.mood < 0)
+        status.mood = 0;
+
+    if (status.cleanliness < 0)
+        status.cleanliness = 0;
+
+    if (status.health < 0)
+        status.health = 0;
+
+    cout << "배고픔이 증가했습니다." << endl;
+    cout << "피로도가 증가했습니다." << endl;
+    cout << "기분이 감소했습니다." << endl;
+    cout << "청결도가 감소했습니다." << endl;
+
+    if (status.hunger >= 80 || status.cleanliness <= 20) {
+        cout << "건강 관리가 필요합니다!" << endl;
+    }
+}
+
+// 하루 돌봄 기룩 초기화
+void Pet::resetDailyRecord() {
+    dailyRecord = CareRecord();
+}
+
+// 육성 기간 반환
+int Pet::getRaisingDays() {
+    return raisingDays;
 }
