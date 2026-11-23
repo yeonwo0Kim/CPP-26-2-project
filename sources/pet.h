@@ -60,4 +60,6 @@ public:
     void nextDay();
     void resetDailyRecord();
     int getRaisingDays();
+
+    void randomEvent();
 };

@@ -1,9 +1,11 @@
 #include "pet.h"
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 // 생성자
-Pet::Pet(string name, PetType type, int raisingDays) {
+Pet::Pet(string name, PetType type, int raisingDays)
+{
     this->name = name;
     this->type = type;
     this->raisingDays = raisingDays;
@@ -577,7 +579,8 @@ void Pet::talkWithPet()
 }
 
 // 하루 마무리 화면
-void Pet::showDailyResult (int day) {
+void Pet::showDailyResult(int day)
+{
     cout << "\n======================================" << endl;
     cout << "           DAY " << day << " 결과" << endl;
     cout << "======================================" << endl;
@@ -600,11 +603,11 @@ void Pet::showDailyResult (int day) {
     cout << "친밀도 : " << status.intimacy << endl;
 
     cout << "\n======================================" << endl;
-
 }
 
 // 하루 경과에 따른 상태 변화
-void Pet::nextDay() {
+void Pet::nextDay()
+{
     cout << "\n[ 하루 경과에 따른 상태 변화 ]" << endl;
 
     // 상태 변화
@@ -614,7 +617,8 @@ void Pet::nextDay() {
     status.cleanliness -= 10;
 
     // 배고픔이 심하거나 청결도가 낮으면 건강 감소
-    if (status.hunger >= 80 || status.cleanliness <= 20) {
+    if (status.hunger >= 80 || status.cleanliness <= 20)
+    {
         status.health -= 10;
     }
 
@@ -639,17 +643,138 @@ void Pet::nextDay() {
     cout << "기분이 감소했습니다." << endl;
     cout << "청결도가 감소했습니다." << endl;
 
-    if (status.hunger >= 80 || status.cleanliness <= 20) {
+    if (status.hunger >= 80 || status.cleanliness <= 20)
+    {
         cout << "건강 관리가 필요합니다!" << endl;
     }
 }
 
 // 하루 돌봄 기룩 초기화
-void Pet::resetDailyRecord() {
+void Pet::resetDailyRecord()
+{
     dailyRecord = CareRecord();
 }
 
 // 육성 기간 반환
-int Pet::getRaisingDays() {
+int Pet::getRaisingDays()
+{
     return raisingDays;
+}
+
+// 랜덤 이벤트 발생
+void Pet::randomEvent()
+{
+    // 50% 확률로 이벤트 발생
+    int probability = rand() % 100;
+
+    if (probability >= 50)
+    {
+        cout << "\n오늘은 특별한 일이 없었어요." << endl;
+        return;
+    }
+
+    // 5가지 이벤트 중 하나 선택
+    int event = rand() % 5;
+
+    // 상태 변화 전 값 저장
+    int beforeMood = status.mood;
+    int beforeHealth = status.health;
+    int beforeIntimacy = status.intimacy;
+
+    cout << "\n======================================" << endl;
+    cout << "             랜덤 이벤트!" << endl;
+    cout << "======================================" << endl;
+
+    switch (event)
+    {
+    case 0:
+        // 선물 발견
+        cout << endl;
+        cout << name << "가 선물을 발견했습니다!" << endl;
+
+        // 표정 추가
+        cout << "\"우와! 선물이다!\"" << endl;
+
+        status.mood += 15;
+        break;
+
+    case 1:
+        // 감기 걸림
+        cout << "\n"
+             << name << "가 감기에 걸렸습니다..." << endl;
+
+        // 표정 추가
+        cout << "\"몸이 조금 아파요...\"" << endl;
+
+        status.health -= 15;
+        break;
+
+    case 2:
+        // 특별한 놀이
+        cout << "\n"
+             << name << "가 새로운 장난감을 발견했습니다!" << endl;
+
+        // 표정 추가
+        cout << "\"같이 놀아요!\"" << endl;
+
+        status.mood += 10;
+        status.intimacy += 10;
+        break;
+
+    case 3:
+        // 외로움
+        cout << "\n"
+             << name << "가 외로움을 느끼고 있습니다..." << endl;
+        cout << "\"조금 심심해요...\"" << endl;
+
+        status.mood -= 10;
+        break;
+
+    case 4:
+        // 행운의 날
+        cout << "\n"
+             << name << "에게 좋은 일이 생겼습니다!" << endl;
+        cout << "\"오늘은 정말 행복한 날이에요!\"" << endl;
+
+        status.health += 5;
+        status.mood += 10;
+        break;
+    }
+
+    // 상태값 범위 제한
+    if (status.mood > 100)
+        status.mood = 100;
+    if (status.mood < 0)
+        status.mood = 0;
+
+    if (status.health > 100)
+        status.health = 100;
+    if (status.health < 0)
+        status.health = 0;
+
+    if (status.intimacy > 100)
+        status.intimacy = 100;
+
+    // 상태 변화 출력
+    cout << "\n[ 상태 변화 ]" << endl;
+
+    if (beforeMood != status.mood)
+    {
+        cout << "기분   : " << beforeMood
+             << " -> " << status.mood << endl;
+    }
+
+    if (beforeHealth != status.health)
+    {
+        cout << "건강   : " << beforeHealth
+             << " -> " << status.health << endl;
+    }
+
+    if (beforeIntimacy != status.intimacy)
+    {
+        cout << "친밀도 : " << beforeIntimacy
+             << " -> " << status.intimacy << endl;
+    }
+
+    cout << endl;
 }

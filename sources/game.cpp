@@ -1,5 +1,7 @@
 #include <iostream>
 #include "game.h"
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 // 숫자 입력 함수
@@ -93,6 +95,8 @@ Pet createPet() {
 // Game 생성자
 Game::Game() {
     day = 1;
+
+    srand(time(nullptr));
 }
 
 // 메인 메뉴 출력
@@ -232,6 +236,9 @@ bool Game::endDay(Pet& pet) {
 
         cout << "\nDAY " << day - 1 << " 종료!" << endl;
         cout << "DAY " << day << "로 이동합니다." << endl;
+
+        // 새로운 날 이동할 때 랜덤 이벤트 발생
+        pet.randomEvent();
     }
 
     else if (choice == 2){
