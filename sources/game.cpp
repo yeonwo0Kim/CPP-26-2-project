@@ -1,24 +1,9 @@
 #include <iostream>
 #include "game.h"
+#include "input.h"
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-
-// 숫자 입력 함수
-int inputNumber() {
-    int number;
-
-    // 예외 상황
-    while (!(cin >> number)) {
-        cout << "\n잘못된 입력입니다. 숫자로 입력해주세요." << endl;
-        cout << "선택 : ";
-
-        cin.clear();
-        cin.ignore(10000, '\n');
-    }
-
-    return number;
-}
 
 // 펫 생성 함수
 Pet createPet() {

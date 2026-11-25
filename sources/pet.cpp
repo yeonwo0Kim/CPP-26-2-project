@@ -1,4 +1,5 @@
 #include "pet.h"
+#include "input.h"
 #include <iostream>
 #include <cstdlib>
 using namespace std;
@@ -253,17 +254,20 @@ void Pet::giveFood()
     cout << "1. 먹이주기" << endl;
     cout << "2. 돌아가기" << endl;
     cout << "\n선택 : ";
-    cin >> choice;
+    choice = inputNumber();
 
+    // 올바른 메뉴 번호가 입력될 때까지 반복
+    while (choice < 1 || choice > 2)
+    {
+        cout << "잘못된 선택입니다. 1~2 사이의 숫자를 입력해주세요." << endl;
+        cout << "\n선택 : ";
+        choice = inputNumber();
+    }
+
+    // 돌아가기
     if (choice == 2)
     {
         cout << "\n먹이 주기를 취소했습니다." << endl;
-        return;
-    }
-
-    if (choice != 1)
-    {
-        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
         return;
     }
 
@@ -326,17 +330,19 @@ void Pet::playWithPet()
     cout << "4. 돌아가기" << endl;
 
     cout << "\n선택 : ";
-    cin >> choice;
+    choice = inputNumber();
+
+    // 올바른 메뉴 번호가 입력될 때까지 반복
+    while (choice < 1 || choice > 4)
+    {
+        cout << "잘못된 선택입니다. 1~4 사이의 숫자를 입력해주세요." << endl;
+        cout << "\n선택 : ";
+        choice = inputNumber();
+    }
 
     if (choice == 4)
     {
         cout << "\n놀아주기를 취소했습니다." << endl;
-        return;
-    }
-
-    if (choice < 1 || choice > 3)
-    {
-        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
         return;
     }
 
@@ -441,19 +447,20 @@ void Pet::washPet()
     cout << "2. 돌아가기" << endl;
 
     cout << "\n선택 : ";
-    cin >> choice;
+    choice = inputNumber();
+
+    // 올바른 메뉴 번호가 입력될 때까지 반복
+    while (choice < 1 || choice > 2)
+    {
+        cout << "잘못된 선택입니다. 1~2 사이의 숫자를 입력해주세요." << endl;
+        cout << "\n선택 : ";
+        choice = inputNumber();
+    }
 
     // 돌아가기
     if (choice == 2)
     {
         cout << "\n씻기기를 취소했습니다." << endl;
-        return;
-    }
-
-    // 잘못된 선택
-    if (choice != 1)
-    {
-        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
         return;
     }
 
@@ -516,19 +523,20 @@ void Pet::sleepPet()
     cout << "2. 돌아가기" << endl;
 
     cout << "\n선택 : ";
-    cin >> choice;
+    choice = inputNumber();
+
+    // 올바른 메뉴 번호가 입력될 때까지 반복
+    while (choice < 1 || choice > 2)
+    {
+        cout << "잘못된 선택입니다. 1~2 사이의 숫자를 입력해주세요." << endl;
+        cout << "\n선택 : ";
+        choice = inputNumber();
+    }
 
     // 돌아가기
     if (choice == 2)
     {
         cout << "\n재우기를 취소했습니다." << endl;
-        return;
-    }
-
-    // 잘못된 선택
-    if (choice != 1)
-    {
-        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
         return;
     }
 
@@ -601,17 +609,19 @@ void Pet::talkWithPet()
     cout << "4. 돌아가기" << endl;
 
     cout << "\n선택 : ";
-    cin >> choice;
+    choice = inputNumber();
+
+    // 올바른 메뉴 번호가 입력될 때까지 반복
+    while (choice < 1 || choice > 4)
+    {
+        cout << "잘못된 선택입니다. 1~4 사이의 숫자를 입력해주세요." << endl;
+        cout << "\n선택 : ";
+        choice = inputNumber();
+    }
 
     if (choice == 4)
     {
         cout << "\n대화를 종료했습니다." << endl;
-        return;
-    }
-
-    if (choice < 1 || choice > 3)
-    {
-        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
         return;
     }
 
