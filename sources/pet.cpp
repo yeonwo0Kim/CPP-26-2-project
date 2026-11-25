@@ -188,7 +188,7 @@ void Pet::showGameScreen(int day)
 
     cout << "\n"
          << endl;
-    cout << "[ 캐릭터 상태 ]" << endl;
+    cout << "[ 펫 상태 ]" << endl;
 
     showBar("배고픔", status.hunger);
     showBar("피로도", status.fatigue);
@@ -210,7 +210,8 @@ void Pet::showGameScreen(int day)
     cout << "5. 대화하기" << endl;
     cout << "6. 상태 확인" << endl;
     cout << "7. 하루 마무리" << endl;
-    cout << "8. 메인 메뉴로 돌아가기" << endl;
+    cout << "8. 새로운 펫 만들기" << endl;
+    cout << "9. 게임 종료" << endl;
     cout << "\n"
          << endl;
 }
