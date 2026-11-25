@@ -250,7 +250,7 @@ void Pet::giveFood()
 
     cout << "\n어떤 먹이를 줄까요?\n"
          << endl;
-    cout << "1. 일반 먹이" << endl;
+    cout << "1. 먹이주기" << endl;
     cout << "2. 돌아가기" << endl;
     cout << "\n선택 : ";
     cin >> choice;
@@ -389,11 +389,13 @@ void Pet::playWithPet()
         status.intimacy += 7;
         status.fatigue += 5;
 
-        cout << "\n" << name << "에게 장난감을 건네주었습니다!" << endl;
+        cout << "\n"
+             << name << "에게 장난감을 건네주었습니다!" << endl;
 
         cout << "\n     ( o.o )  [★ ]" << endl;
 
-        cout << "\n" << name << "가 장난감을 가지고 놉니다." << endl;
+        cout << "\n"
+             << name << "가 장난감을 가지고 놉니다." << endl;
 
         cout << "\n     ( ^.^ ) ~ [★ ]" << endl;
 
@@ -427,9 +429,33 @@ void Pet::playWithPet()
 // 씻기기 기능
 void Pet::washPet()
 {
+    int choice;
+
     cout << "\n======================================" << endl;
     cout << "                씻기기" << endl;
     cout << "======================================" << endl;
+
+    cout << "\n무엇을 할까요?\n"
+         << endl;
+    cout << "1. 씻기기" << endl;
+    cout << "2. 돌아가기" << endl;
+
+    cout << "\n선택 : ";
+    cin >> choice;
+
+    // 돌아가기
+    if (choice == 2)
+    {
+        cout << "\n씻기기를 취소했습니다." << endl;
+        return;
+    }
+
+    // 잘못된 선택
+    if (choice != 1)
+    {
+        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+        return;
+    }
 
     // 청결도가 높으면 씻기지 않음
     if (status.cleanliness >= 90)
@@ -478,9 +504,42 @@ void Pet::washPet()
 // 재우기 기능
 void Pet::sleepPet()
 {
+    int choice;
+
     cout << "\n======================================" << endl;
     cout << "                재우기" << endl;
     cout << "======================================" << endl;
+
+    cout << "\n무엇을 할까요?\n"
+         << endl;
+    cout << "1. 재우기" << endl;
+    cout << "2. 돌아가기" << endl;
+
+    cout << "\n선택 : ";
+    cin >> choice;
+
+    // 돌아가기
+    if (choice == 2)
+    {
+        cout << "\n재우기를 취소했습니다." << endl;
+        return;
+    }
+
+    // 잘못된 선택
+    if (choice != 1)
+    {
+        cout << "\n잘못된 선택입니다. 다시 선택해주세요." << endl;
+        return;
+    }
+
+    // 피로도가 낮으면 재우지 않음
+    if (status.fatigue <= 30)
+    {
+        cout << "\n"
+             << name << "는 피곤하지 않아요!" << endl;
+        cout << "지금은 자지 않아도 될 것 같아요." << endl;
+        return;
+    }
 
     // 상태 변화 전 값 저장
     int beforeFatigue = status.fatigue;
