@@ -352,24 +352,52 @@ void Pet::playWithPet()
         status.mood += 20;
         status.intimacy += 10;
         status.fatigue += 15;
+
         cout << "\n"
-             << name << "와 공놀이를 했습니다!" << endl;
+             << name << "에게 공을 던졌습니다!" << endl;
+
+        cout << "\n     ( o.o )              O" << endl;
+
+        cout << "\n"
+             << name << "가 공을 향해 달려갑니다..." << endl;
+
+        cout << "\n                  ( ^.^ ) O" << endl;
+
+        cout << "\n\"" << "공을 잡았어요! " << "\"" << endl;
         break;
 
     case 2: // 숨바꼭질
         status.mood += 15;
         status.intimacy += 8;
         status.fatigue += 10;
+
         cout << "\n"
-             << name << "와 숨바꼭질을 했습니다!" << endl;
+             << name << "가 어딘가에 숨었습니다..." << endl;
+
+        cout << "\n     | 문 |  ..." << endl;
+
+        cout << "\n어디에 숨었을까요?" << endl;
+        cout << "문 뒤를 살펴봅니다..." << endl;
+
+        cout << "\n     | 문 | ( O.O ) !" << endl;
+
+        cout << "\n\"" << "앗! 들켰다!" << "\"" << endl;
         break;
 
     case 3: // 장난감 놀이
         status.mood += 15;
         status.intimacy += 7;
         status.fatigue += 5;
-        cout << "\n"
-             << name << "와 장난감 놀이를 했습니다!" << endl;
+
+        cout << "\n" << name << "에게 장난감을 건네주었습니다!" << endl;
+
+        cout << "\n     ( o.o )  [★ ]" << endl;
+
+        cout << "\n" << name << "가 장난감을 가지고 놉니다." << endl;
+
+        cout << "\n     ( ^.^ ) ~ [★ ]" << endl;
+
+        cout << "\n\"" << "우와! 내가 좋아하는 장난감이에요!" << "\"" << endl;
         break;
     }
 
@@ -381,6 +409,7 @@ void Pet::playWithPet()
     if (status.fatigue > 100)
         status.fatigue = 100;
 
+    // 기존 공통 반응 삭제
     showPet();
     cout << "                 \"정말 재미있어요!\"" << endl;
 

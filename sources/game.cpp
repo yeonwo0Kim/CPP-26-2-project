@@ -101,11 +101,11 @@ Game::Game() {
 
 // 메인 메뉴 출력
 void Game::showMainMenu() {
-    cout << "\n======================================" << endl;
+        cout << "\n======================================" << endl;
         cout << "             MY LITTLE PET" << endl;
         cout << "=======================================" << endl;
 
-        cout << "\n          나만의 캐릭터를 키워보세요!" << endl;
+        cout << "\n          나만의 펫을 키워보세요!" << endl;
         cout << "\n                  (｡･ω･｡)" << endl;
         cout << "\n" << endl;
 
